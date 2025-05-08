@@ -1,4 +1,4 @@
-package com.cotato.weather.domain.place.response;
+package com.cotato.weather.domain.place.dto.response;
 
 import com.cotato.weather.domain.place.entity.SavedPlace;
 
