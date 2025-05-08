@@ -3,6 +3,7 @@ package com.cotato.weather.domain.place.entity;
 import com.cotato.weather.domain.common.entity.BaseTime;
 import com.cotato.weather.domain.user.entity.User;
 
+import com.cotato.weather.domain.user.entity.UserTemp;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +20,7 @@ public class SavedPlace extends BaseTime {
 	private Long id;
 
 	@ManyToOne
-	private User user;
+	private UserTemp userTemp;
 
 	@Column(nullable = false)
 	private String placeName;
@@ -36,4 +37,6 @@ public class SavedPlace extends BaseTime {
 	public void updatePin() {
 		this.isPinned = this.isPinned.equals("Y") ? "N" : "Y";
 	}
+
+
 }

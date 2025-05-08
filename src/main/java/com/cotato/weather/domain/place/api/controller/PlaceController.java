@@ -1,7 +1,7 @@
 package com.cotato.weather.domain.place.api.controller;
 
-import com.cotato.weather.domain.place.request.SavedPlaceCreateRequest;
-import com.cotato.weather.domain.place.response.SavedPlaceListResponse;
+import com.cotato.weather.domain.place.dto.request.SavedPlaceCreateRequest;
+import com.cotato.weather.domain.place.dto.response.SavedPlaceListResponse;
 import com.cotato.weather.global.common.response.ApiResponse;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +37,7 @@ public class PlaceController {
 	//위치 저장
 	@PostMapping("api/v1/places")
 	public ApiResponse<Long> savePlace(@RequestBody SavedPlaceCreateRequest savedPlaceCreateRequest) {
-		Long savedPlaceId = placeService.savePlace(savedPlaceCreateRequest.toEntity());
+		Long savedPlaceId = placeService.savePlace(savedPlaceCreateRequest);
 		return ApiResponse.created(savedPlaceId);
 	}
 
