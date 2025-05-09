@@ -31,7 +31,7 @@ public class PlaceService {
 
 	// 위치 목록 조회
 	public List<SavedPlace> getSavedPlaces(Long userId) {
-		return savedPlaceRepository.findByUserId(userId);
+		return savedPlaceRepository.findByUserTemp_Id(userId);
 	}
 
 	// 위치 핀 등록 및 해제

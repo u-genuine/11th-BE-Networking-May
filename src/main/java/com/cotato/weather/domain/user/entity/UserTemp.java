@@ -1,7 +1,11 @@
 package com.cotato.weather.domain.user.entity;
 
 import com.cotato.weather.domain.place.entity.SavedPlace;
+import com.cotato.weather.global.exception.ErrorCode;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +15,8 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 public class UserTemp {
-    @jakarta.persistence.Id
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
 
@@ -27,7 +32,7 @@ public class UserTemp {
 
     public void updatePin(SavedPlace savedPlace) {
         if(!savedPlace.getUserTemp().equals(this)) {
-            throw new IllegalArgumentException("잘못된 사용자입니다.");
+            throw new IllegalArgumentException(ErrorCode.USER_NOT_AUTHORIZED_FOR_ACTION.getMessage());
         }
 
         savedPlace.updatePin();

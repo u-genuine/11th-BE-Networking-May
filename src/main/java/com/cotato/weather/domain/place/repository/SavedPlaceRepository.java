@@ -9,5 +9,6 @@ import java.util.List;
 
 @Repository
 public interface SavedPlaceRepository extends JpaRepository<SavedPlace, Long> {
-    List<SavedPlace> findByUserId(Long userId);
+
+    List<SavedPlace> findByUserTemp_Id(Long userTempId);
 }
