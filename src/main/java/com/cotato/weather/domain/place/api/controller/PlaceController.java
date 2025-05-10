@@ -1,8 +1,9 @@
 package com.cotato.weather.domain.place.api.controller;
 
-import com.cotato.weather.domain.place.request.SavedPlaceCreateRequest;
-import com.cotato.weather.domain.place.response.SavedPlaceListResponse;
+import com.cotato.weather.domain.place.dto.request.SavedPlaceCreateRequest;
+import com.cotato.weather.domain.place.dto.response.SavedPlaceListResponse;
 import com.cotato.weather.global.common.response.ApiResponse;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/places")
+@RequestMapping("/api/v1/places")
 public class PlaceController {
 
 	private final PlaceService placeService;
@@ -22,7 +23,8 @@ public class PlaceController {
 	//등록된 위치 상세 조회
 
 	//유저의 등록된 모든 위치 조회
-	@GetMapping("/api/v1/places")
+	@Operation(summary = "유저의 등록된 모든 위치 조회", description = "유저의 등록된 모든 위치 조회")
+	@GetMapping("")
 	public ApiResponse<List<SavedPlaceListResponse>> getSavedPlaces() {
 		Long userId = 1L; // 임시 userId를 1로 설정
 		List<SavedPlaceListResponse> savedPlaces =
@@ -35,22 +37,25 @@ public class PlaceController {
 	}
 
 	//위치 저장
-	@PostMapping("api/v1/places")
+	@Operation(summary = "위치 저장", description = "위치 저장")
+	@PostMapping("")
 	public ApiResponse<Long> savePlace(@RequestBody SavedPlaceCreateRequest savedPlaceCreateRequest) {
-		Long savedPlaceId = placeService.savePlace(savedPlaceCreateRequest.toEntity());
+		Long savedPlaceId = placeService.savePlace(savedPlaceCreateRequest);
 		return ApiResponse.created(savedPlaceId);
 	}
 
 	//위치 핀 등록 및 해제
-	@PostMapping("/api/v1/places/pin/{savedPlaceId}")
-	public ApiResponse<Long> savePlacePin(@Param("savedPlaceId") Long savedPlaceId) {
+	@Operation(summary = "위치 핀 등록 및 해제", description = "위치 핀 등록 및 해제")
+	@PostMapping("/pin/{savedPlaceId}")
+	public ApiResponse<Long> savePlacePin(@PathVariable("savedPlaceId") Long savedPlaceId) {
 		placeService.updatePin(savedPlaceId);
 		return ApiResponse.created(savedPlaceId);
 	}
 
 
 	// 위치 삭제
-	@DeleteMapping("/api/v1/places/{savedPlaceId}")
+	@Operation(summary = "위치 삭제", description = "위치 삭제")
+	@DeleteMapping("/{savedPlaceId}")
 	public ApiResponse<Void> deletePlace(@PathVariable("savedPlaceId") Long savedPlaceId) {
 		placeService.deletePlace(savedPlaceId);
 		return ApiResponse.noContent();
