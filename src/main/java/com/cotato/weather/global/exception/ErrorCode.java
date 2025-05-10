@@ -16,6 +16,7 @@ public enum ErrorCode {
 	FORBIDDEN(HttpStatus.FORBIDDEN, "COMMON-403", "금지된 요청입니다."),
 
 	// User 관련 에러
+	USER_NOT_AUTHORIZED_FOR_ACTION(HttpStatus.UNAUTHORIZED, "USER-001", "인증이 필요합니다"),
 
 	// Place 관련 에러
 
