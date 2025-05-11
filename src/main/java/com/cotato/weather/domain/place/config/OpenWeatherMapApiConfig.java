@@ -6,10 +6,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component @Getter @Setter
-@ConfigurationProperties(prefix = "open-weather-map")
+@ConfigurationProperties(prefix = "api-key.open-weather-map")
 public class OpenWeatherMapApiConfig {
     private String apiKey;
-    private String baseUrl;
+    private String weatherUrl;
+    private String airPollutionUrl;
 
 
 }
