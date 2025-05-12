@@ -50,4 +50,10 @@ public class PlaceService {
 	public void deletePlace(Long id) {
 		savedPlaceRepository.deleteById(id);
 	}
+
+	//Id로 위치 조회
+	public SavedPlace getSavedPlace(Long id) {
+		return savedPlaceRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("SavedPlace not found with id: " + id));
+	}
 }
