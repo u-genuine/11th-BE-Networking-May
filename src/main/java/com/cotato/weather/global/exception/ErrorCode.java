@@ -17,6 +17,7 @@ public enum ErrorCode {
 
 	// User 관련 에러
 	USER_NOT_AUTHORIZED_FOR_ACTION(HttpStatus.UNAUTHORIZED, "USER-001", "인증이 필요합니다"),
+	USER_NOT_FOUND(HttpStatus.NOT_FOUND, "USER-002", "사용자를 찾을 수 없습니다."),
 
 	// Place 관련 에러
 
