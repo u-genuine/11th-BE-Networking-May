@@ -4,7 +4,6 @@ import com.cotato.weather.domain.place.dto.request.SavedPlaceCreateRequest;
 import com.cotato.weather.domain.place.dto.response.SavedPlaceListResponse;
 import com.cotato.weather.global.common.response.ApiResponse;
 import io.swagger.v3.oas.annotations.Operation;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import com.cotato.weather.domain.place.service.PlaceService;
@@ -19,20 +18,14 @@ import java.util.List;
 public class PlaceController {
 
 	private final PlaceService placeService;
-	
+
 	//등록된 위치 상세 조회
 
 	//유저의 등록된 모든 위치 조회
 	@Operation(summary = "유저의 등록된 모든 위치 조회", description = "유저의 등록된 모든 위치 조회")
 	@GetMapping("")
 	public ApiResponse<List<SavedPlaceListResponse>> getSavedPlaces() {
-		Long userId = 1L; // 임시 userId를 1로 설정
-		List<SavedPlaceListResponse> savedPlaces =
-				placeService.getSavedPlaces(userId)
-				.stream()
-				.map(SavedPlaceListResponse::from)
-				.toList();
-
+		List<SavedPlaceListResponse> savedPlaces = placeService.getSavedPlaces();
 		return ApiResponse.ok(savedPlaces);
 	}
 

@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface SavedPlaceRepository extends JpaRepository<SavedPlace, Long> {
 
-    List<SavedPlace> findByUserTemp_Id(Long userTempId);
+    List<SavedPlace> findByUserId(Long id);
 }
