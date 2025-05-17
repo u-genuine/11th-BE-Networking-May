@@ -41,14 +41,9 @@ public class PlaceService {
 	public List<SavedPlaceListResponse> getSavedPlaces() {
 		User user = currentUserUtil.getCurrentUser();
 		List<SavedPlace> savedPlaces =  savedPlaceRepository.findByUserId(user.getId());
+
 		return savedPlaces.stream()
-				.map(savedPlace -> SavedPlaceListResponse.builder()
-						.id(savedPlace.getId())
-						.placeName(savedPlace.getPlaceName())
-						.x(savedPlace.getX())
-						.y(savedPlace.getY())
-						.isPinned(savedPlace.isPinned())
-						.build())
+				.map(SavedPlaceListResponse::from)
 				.toList();
 	}
 
