@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @Transactional
@@ -78,8 +77,5 @@ public class PlaceService {
 				.orElseThrow(() -> new IllegalArgumentException("SavedPlace not found with id: " + id));
 	}
 
-	//유저가 등록한 위치 조회
-	public List<SavedPlace> getSavedPlacesByUserId(Long userId) {
-		return savedPlaceRepository.findByUserId(userId);
-	}
+
 }

@@ -2,11 +2,8 @@ package com.cotato.weather.domain.place.api.controller;
 
 import com.cotato.weather.domain.place.dto.request.SavedPlaceCreateRequest;
 import com.cotato.weather.domain.place.dto.response.SavedPlaceListResponse;
-import com.cotato.weather.domain.place.entity.SavedPlace;
 import com.cotato.weather.global.common.response.ApiResponse;
-import com.cotato.weather.global.util.CurrentUserUtil;
 import io.swagger.v3.oas.annotations.Operation;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import com.cotato.weather.domain.place.service.PlaceService;
