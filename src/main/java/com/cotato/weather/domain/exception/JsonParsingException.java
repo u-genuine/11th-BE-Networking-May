@@ -1,7 +1,7 @@
 package com.cotato.weather.domain.exception;
 
 import com.cotato.weather.global.exception.ErrorCode;
-import io.swagger.v3.core.util.Json;
+
 
 public class JsonParsingException extends RuntimeException {
     private final ErrorCode errorCode;
