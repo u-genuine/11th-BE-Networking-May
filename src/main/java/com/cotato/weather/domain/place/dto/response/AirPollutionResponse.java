@@ -3,8 +3,9 @@ package com.cotato.weather.domain.place.dto.response;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
+@AllArgsConstructor @NoArgsConstructor
 @Builder
 @Getter
 public class AirPollutionResponse {
