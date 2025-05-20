@@ -1,22 +1,22 @@
-name: 11th-BE-Netwoking-May CI/CD
-
-on:
-  pull_request:
-    types: [closed]
-    branches:
-      - develop # PR이 develop에 머지될 때만 실행
-  workflow_dispatch: # 수동 실행 가능
-
-jobs:
-  deploy:
-    runs-on: self-hosted
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Deploy directly on self-hosted EC2
-        run: |
-          cd ~/app/step1
-          chmod +x deploy.sh
-          ./deploy.sh
+#name: 11th-BE-Netwoking-May CI/CD
+#
+#on:
+#  pull_request:
+#    types: [closed]
+#    branches:
+#      - develop # PR이 develop에 머지될 때만 실행
+#  workflow_dispatch: # 수동 실행 가능
+#
+#jobs:
+#  deploy:
+#    runs-on: self-hosted
+#
+#    steps:
+#      - name: Checkout repository
+#        uses: actions/checkout@v3
+#
+#      - name: Deploy directly on self-hosted EC2
+#        run: |
+#          cd ~/app/step1
+#          chmod +x deploy.sh
+#          ./deploy.sh

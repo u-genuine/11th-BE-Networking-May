@@ -23,7 +23,7 @@ public class PlaceService {
 
 	// 위치 저장
 	public Long savePlace(SavedPlaceCreateRequest savedPlaceCreateRequest) {
-		User user = currentUserUtil.getCurrentUser();
+		User user = currentUserUtil.getMockUser();
 
 		SavedPlace savedPlace = SavedPlace.builder()
 				.user(user)
@@ -39,7 +39,7 @@ public class PlaceService {
 
 	// 위치 목록 조회
 	public List<SavedPlaceListResponse> getSavedPlaces() {
-		User user = currentUserUtil.getCurrentUser();
+		User user = currentUserUtil.getMockUser();
 		List<SavedPlace> savedPlaces =  savedPlaceRepository.findByUserId(user.getId());
 
 		return savedPlaces.stream()
@@ -53,7 +53,7 @@ public class PlaceService {
 				.orElseThrow(() -> new IllegalArgumentException("SavedPlace not found with id: " + savedPlaceId));
 
 		// 핀 등록된 경우 해제, 해제된 경우 등록
-		User user = currentUserUtil.getCurrentUser();
+		User user = currentUserUtil.getMockUser();
 
 		savedPlace.updatePin(user);
 
