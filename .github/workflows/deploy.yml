@@ -1,0 +1,29 @@
+name: 11th-BE-Netwoking-May CI/CD
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - develop # PR이 develop에 머지될 때만 실행
+  workflow_dispatch: # 수동 실행 가능
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Add SSH key
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
+
+      - name: Deploy to EC2
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} << 'EOF'
+            cd ~/app/step1
+            chmod +x deploy.sh
+            ./deploy.sh
+          EOF
