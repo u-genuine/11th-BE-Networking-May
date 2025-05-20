@@ -18,4 +18,6 @@ script: "./gradlew clean build"
 notifications:
   email:
     recipients:
-      - "u_genuine@naver.com"
+      - u_genuine@naver.com
+    on_success: always # 성공 시에도 항상 이메일 전송
+    on_failure: always # 실패 시에도 항상 이메일 전송
