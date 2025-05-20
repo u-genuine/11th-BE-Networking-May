@@ -39,6 +39,11 @@ public class SecurityConfig {
 			.logout(logout -> logout.logoutSuccessUrl("/"))
 			.oauth2Login(oauth2 -> oauth2
 				.userInfoEndpoint(userInfo -> userInfo.userService(customOAuth2UserService))
+				.successHandler((request, response, authentication) -> {
+					// 로그인 성공 후 프론트엔드로 리디렉션
+					String redirectUri = "http://localhost:5173";
+					response.sendRedirect(redirectUri);
+				})
 			);
 
 		return http.build();
