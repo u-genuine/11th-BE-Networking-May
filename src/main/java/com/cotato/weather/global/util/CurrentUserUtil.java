@@ -33,4 +33,9 @@ public class CurrentUserUtil {
 		}
 		throw new AppException(ErrorCode.USER_NOT_AUTHORIZED_FOR_ACTION);
 	}
+
+	public User getMockUser() {
+		return userRepository.findById(1L)
+			.orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+	}
 }

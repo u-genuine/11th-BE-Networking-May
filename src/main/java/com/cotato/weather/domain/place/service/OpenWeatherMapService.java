@@ -39,7 +39,7 @@ public class OpenWeatherMapService {
         SavedPlace savedPlace = placeService.getSavedPlace(placeId);
 
         String weatherUrl = buildUrl(openWeatherMapApiConfig.getWeatherUrl(),
-                openWeatherMapApiConfig.getApiKey(), savedPlace.getX(), savedPlace.getY());
+                openWeatherMapApiConfig.getApiKey(), savedPlace.getY(), savedPlace.getX());
 
         String weatherResponse = null;
         try {
@@ -55,7 +55,7 @@ public class OpenWeatherMapService {
         }
 
         String airPollutionUrl = buildUrl(openWeatherMapApiConfig.getAirPollutionUrl(),
-                openWeatherMapApiConfig.getApiKey(), savedPlace.getX(), savedPlace.getY());
+                openWeatherMapApiConfig.getApiKey(), savedPlace.getY(), savedPlace.getX());
 
         String airPollutionApiResponse = null;
         try {
@@ -82,12 +82,12 @@ public class OpenWeatherMapService {
     }
 
     public ApiStatus checkApiStatus() {
-        Long testPlaceId = 1L; // 테스트용으로 사용할 장소 ID
+        Long testPlaceId = 2L; // 테스트용으로 사용할 장소 ID
 
         SavedPlace savedPlace = placeService.getSavedPlace(testPlaceId);
 
         String weatherUrl = buildUrl(openWeatherMapApiConfig.getWeatherUrl(),
-                openWeatherMapApiConfig.getApiKey(), savedPlace.getX(), savedPlace.getY());
+                openWeatherMapApiConfig.getApiKey(), savedPlace.getY(), savedPlace.getX());
 
         String weatherResponse = null;
 
@@ -104,7 +104,7 @@ public class OpenWeatherMapService {
         }
 
         String airPollutionUrl = buildUrl(openWeatherMapApiConfig.getAirPollutionUrl(),
-                openWeatherMapApiConfig.getApiKey(), savedPlace.getX(), savedPlace.getY());
+                openWeatherMapApiConfig.getApiKey(), savedPlace.getY(), savedPlace.getX());
 
         String airPollutionResponse = null;
         try {
@@ -265,7 +265,7 @@ public class OpenWeatherMapService {
         SavedPlace savedPlace = placeService.getSavedPlace(placeId);
 
         String weatherUrl = buildUrl(openWeatherMapApiConfig.getWeatherUrl(),
-                openWeatherMapApiConfig.getApiKey(), savedPlace.getX(), savedPlace.getY());
+                openWeatherMapApiConfig.getApiKey(), savedPlace.getY(), savedPlace.getX());
 
         String weatherResponse = null;
         try {
@@ -281,7 +281,7 @@ public class OpenWeatherMapService {
         }
 
         String airPollutionUrl = buildUrl(openWeatherMapApiConfig.getAirPollutionUrl(),
-                openWeatherMapApiConfig.getApiKey(), savedPlace.getX(), savedPlace.getY());
+                openWeatherMapApiConfig.getApiKey(), savedPlace.getY(), savedPlace.getX());
 
         String airPollutionApiResponse = null;
         try {
