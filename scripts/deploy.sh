@@ -2,16 +2,9 @@
 
 APP_DIR=/home/ec2-user/app/step2
 ZIP_DIR=$APP_DIR/zip
-ZIP_FILE=$ZIP_DIR/cotato-11th-weather.zip
 
 echo "> 환경 변수 설정"
 export $(cat $APP_DIR/.env | xargs)
-
-### zip 파일 존재 확인 (없으면 중단)
-if [ ! -f "$ZIP_FILE" ]; then
-  echo "> 배포 zip 파일이 존재하지 않습니다: $ZIP_FILE"
-  exit 1
-fi
 
 echo "> 압축 해제"
 unzip -o $ZIP_DIR/cotato-11th-weather.zip -d $ZIP_DIR
