@@ -38,7 +38,7 @@ public class OpenWeatherMapService {
         SavedPlace savedPlace = placeService.getSavedPlace(placeId);
 
         String weatherUrl = buildUrl(openWeatherMapApiConfig.getWeatherUrl(),
-                openWeatherMapApiConfig.getApiKey(), savedPlace.getX(), savedPlace.getY());
+                openWeatherMapApiConfig.getApiKey(), savedPlace.getY(), savedPlace.getX());
 
         String weatherResponse = null;
         try {
@@ -54,7 +54,7 @@ public class OpenWeatherMapService {
         }
 
         String airPollutionUrl = buildUrl(openWeatherMapApiConfig.getAirPollutionUrl(),
-                openWeatherMapApiConfig.getApiKey(), savedPlace.getX(), savedPlace.getY());
+                openWeatherMapApiConfig.getApiKey(), savedPlace.getY(), savedPlace.getX());
 
         String airPollutionApiResponse = null;
         try {
@@ -103,7 +103,7 @@ public class OpenWeatherMapService {
         }
 
         String airPollutionUrl = buildUrl(openWeatherMapApiConfig.getAirPollutionUrl(),
-                openWeatherMapApiConfig.getApiKey(), savedPlace.getX(), savedPlace.getY());
+                openWeatherMapApiConfig.getApiKey(), savedPlace.getY(), savedPlace.getX());
 
         String airPollutionResponse = null;
         try {
@@ -264,7 +264,7 @@ public class OpenWeatherMapService {
         SavedPlace savedPlace = placeService.getSavedPlace(placeId);
 
         String weatherUrl = buildUrl(openWeatherMapApiConfig.getWeatherUrl(),
-                openWeatherMapApiConfig.getApiKey(), savedPlace.getX(), savedPlace.getY());
+                openWeatherMapApiConfig.getApiKey(), savedPlace.getY(), savedPlace.getX());
 
         String weatherResponse = null;
         try {
@@ -280,7 +280,7 @@ public class OpenWeatherMapService {
         }
 
         String airPollutionUrl = buildUrl(openWeatherMapApiConfig.getAirPollutionUrl(),
-                openWeatherMapApiConfig.getApiKey(), savedPlace.getX(), savedPlace.getY());
+                openWeatherMapApiConfig.getApiKey(), savedPlace.getY(), savedPlace.getX());
 
         String airPollutionApiResponse = null;
         try {
