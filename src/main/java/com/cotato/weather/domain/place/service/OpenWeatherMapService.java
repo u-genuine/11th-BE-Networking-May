@@ -26,6 +26,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Service
 @RequiredArgsConstructor
 public class OpenWeatherMapService {
