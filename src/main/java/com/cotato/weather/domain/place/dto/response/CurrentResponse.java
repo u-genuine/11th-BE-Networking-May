@@ -3,10 +3,12 @@ package com.cotato.weather.domain.place.dto.response;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class CurrentResponse {
     private String date;
     private String weatherDescription; //날씨 설명

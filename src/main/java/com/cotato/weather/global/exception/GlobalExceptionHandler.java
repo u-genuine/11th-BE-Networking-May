@@ -1,5 +1,6 @@
 package com.cotato.weather.global.exception;
 
+import com.cotato.weather.domain.exception.BadParameterException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -32,6 +33,19 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(AppException.class)
 	public ResponseEntity<ErrorResponse> handleAppException(AppException e, HttpServletRequest request) {
 		log.error("AppException 발생: {}", e.getErrorCode().getMessage());
+		log.error("에러가 발생한 지점 {}, {}", request.getMethod(), request.getRequestURI());
+		ErrorResponse errorResponse = ErrorResponse.of(
+			e.getErrorCode(),
+			request
+		);
+		return ResponseEntity
+			.status(e.getErrorCode().getHttpStatus())
+			.body(errorResponse);
+	}
+
+	@ExceptionHandler(BadParameterException.class)
+	public ResponseEntity<ErrorResponse> handleBadParameterException(BadParameterException e, HttpServletRequest request) {
+		log.error("BadParameterException 발생: {}", e.getMessage());
 		log.error("에러가 발생한 지점 {}, {}", request.getMethod(), request.getRequestURI());
 		ErrorResponse errorResponse = ErrorResponse.of(
 			e.getErrorCode(),
