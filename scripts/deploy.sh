@@ -9,11 +9,24 @@ export $(cat $APP_DIR/.env | xargs)
 echo "> 압축 해제"
 unzip -o $ZIP_DIR/cotato-11th-weather.zip -d $ZIP_DIR
 
-echo "> jar 파일 복사 전 기존 JAR 삭제"
+echo "> 기존 JAR 파일 삭제"
 rm -f $APP_DIR/*.jar
+
+echo "> JAR 복사"
 cp $ZIP_DIR/*.jar $APP_DIR/
 
+echo "> JAR 파일 복사 결과 확인"
+ls -ltr $APP_DIR/*.jar
+
+echo "> 복사 후 상태:"
+ls -l $APP_DIR/*.jar
+
 JAR_NAME=$(ls -tr $APP_DIR/*.jar | tail -n 1)
+
+if [ -z "$JAR_NAME" ]; then
+  echo "> JAR_NAME 비어 있음. 배포 중단"
+  exit 1
+fi
 
 echo "> 복사된 JAR: $JAR_NAME"
 

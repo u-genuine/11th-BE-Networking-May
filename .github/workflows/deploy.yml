@@ -30,11 +30,18 @@ jobs:
       - name: Build project
         run: ./gradlew clean build -x test
 
+      - name: Show build result
+        run: |
+          echo "==== 빌드된 JAR 목록 ===="
+          ls -l build/libs
+
       - name: Prepare deploy package
         run: |
           mkdir -p before-deploy/scripts
           cp scripts/*.sh before-deploy/scripts/
           cp appspec.yml before-deploy/
+          echo "==== 복사할 JAR 파일 목록 ===="
+          ls -l build/libs
           cp build/libs/*.jar before-deploy/
           cd before-deploy && zip -r cotato-11th-weather.zip *
           mkdir -p ../deploy
