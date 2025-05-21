@@ -1,9 +1,10 @@
 #!/bin/bash
 
-source /home/ec2-user/app/step2/.env
-
 APP_DIR=/home/ec2-user/app/step2
 ZIP_DIR=$APP_DIR/zip
+
+echo "> 환경 변수 설정"
+export $(cat $APP_DIR/.env | xargs)
 
 echo "> 압축 해제"
 unzip -o $ZIP_DIR/cotato-11th-weather.zip -d $ZIP_DIR
@@ -30,7 +31,7 @@ echo "> 실행 권한 부여: $JAR_NAME"
 chmod +x $JAR_NAME
 
 echo "> 애플리케이션 실행"
-nohup RDS_URL=$RDS_URL RDS_USERNAME=$RDS_USERNAME RDS_PASSWORD=$RDS_PASSWORD java -jar \
+nohup java -jar \
   -Dspring.config.location=file:$APP_DIR/application-prod.yml \
   -Dspring.profiles.active=prod \
   $JAR_NAME > $APP_DIR/applications.log 2>&1 &
