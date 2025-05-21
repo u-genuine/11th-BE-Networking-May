@@ -43,9 +43,10 @@ jobs:
           echo "==== 복사할 JAR 파일 목록 ===="
           ls -l build/libs
           cp build/libs/*.jar before-deploy/
-          cd before-deploy && zip -r cotato-11th-weather.zip *
-          mkdir -p ../deploy
-          mv cotato-11th-weather.zip ../deploy/
+          
+          mkdir -p deploy
+          cd before-deploy
+          zip -r ../deploy/cotato-11th-weather.zip .
 
       - name: Upload to S3
         uses: jakejarvis/s3-sync-action@master
