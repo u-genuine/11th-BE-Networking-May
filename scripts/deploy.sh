@@ -6,8 +6,8 @@ ZIP_DIR=$APP_DIR/zip
 echo "> 환경 변수 설정"
 export $(cat $APP_DIR/.env | xargs)
 
-echo "> 압축 해제"
-unzip -o $ZIP_DIR/cotato-11th-weather.zip -d $ZIP_DIR
+#echo "> 압축 해제"
+#unzip -o $ZIP_DIR/cotato-11th-weather.zip -d $ZIP_DIR
 
 echo "> 기존 JAR 파일 삭제"
 rm -f $APP_DIR/*.jar
