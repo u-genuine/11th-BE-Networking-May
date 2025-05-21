@@ -9,7 +9,8 @@ export $(cat $APP_DIR/.env | xargs)
 echo "> 압축 해제"
 unzip -o $ZIP_DIR/cotato-11th-weather.zip -d $ZIP_DIR
 
-echo "> jar 파일 복사"
+echo "> jar 파일 복사 전 기존 JAR 삭제"
+rm -f $APP_DIR/*.jar
 cp $ZIP_DIR/*.jar $APP_DIR/
 
 JAR_NAME=$(ls -tr $APP_DIR/*.jar | tail -n 1)
