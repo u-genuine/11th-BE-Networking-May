@@ -24,6 +24,9 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
+      - name: Grant execute permission for deploy scripts
+        run: chmod +x scripts/*.sh
+
       - name: Build project
         run: ./gradlew clean build -x test
 
