@@ -50,15 +50,11 @@ jobs:
           zip -r ../deploy/cotato-11th-weather.zip .
 
       - name: Upload to S3
-        uses: jakejarvis/s3-sync-action@master
-        with:
-          args: --acl private --follow-symlinks --delete
-        env:
-          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+        run: |
+          aws s3 cp deploy/cotato-11th-weather.zip s3://${{ secrets.AWS_S3_BUCKET }}/cotato-11th-weather.zip --region ap-northeast-2
+          env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ap-northeast-2
-          SOURCE_DIR: deploy
 
       - name: Deploy to AWS CodeDeploy using AWS CLI
         run: |
@@ -67,7 +63,7 @@ jobs:
             --deployment-group-name ${{ secrets.CODEDEPLOY_DEPLOY_GROUP }} \
             --deployment-config-name CodeDeployDefault.AllAtOnce \
             --description "Deploy from GitHub Actions via AWS CLI" \
-            --s3-location bucket=${{ secrets.AWS_S3_BUCKET }},bundleType=zip,key=deploy/cotato-11th-weather.zip \
+            --s3-location bucket=${{ secrets.AWS_S3_BUCKET }},bundleType=zip,key=cotato-11th-weather.zip \
             --region ap-northeast-2
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
