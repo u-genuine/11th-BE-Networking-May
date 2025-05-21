@@ -33,9 +33,9 @@ jobs:
           cp scripts/*.sh before-deploy/
           cp appspec.yml before-deploy/
           cp build/libs/*.jar before-deploy/
-          cd before-deploy && zip -r before-deploy.zip .
+          cd before-deploy && zip -r cotato-11th-weather.zip *
           mkdir -p ../deploy
-          mv before-deploy.zip ../deploy/cotato-11th-weather.zip
+          mv cotato-11th-weather.zip ../deploy/
 
       - name: Upload to S3
         uses: jakejarvis/s3-sync-action@master
