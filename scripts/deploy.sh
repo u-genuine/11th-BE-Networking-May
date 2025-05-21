@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source /home/ec2-user/app/step2/.env
+
 APP_DIR=/home/ec2-user/app/step2
 ZIP_DIR=$APP_DIR/zip
 
