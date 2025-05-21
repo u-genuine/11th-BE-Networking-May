@@ -40,13 +40,10 @@ jobs:
           mkdir -p before-deploy/scripts
           cp scripts/*.sh before-deploy/scripts/
           cp appspec.yml before-deploy/
-          echo "==== 복사할 JAR 파일 목록 ===="
-          ls -l build/libs
-          cp build/libs/*.jar before-deploy/
           
           mkdir -p deploy
           cd before-deploy
-          zip -r ../deploy/cotato-11th-weather.zip ./*
+          zip -r ../deploy/cotato-11th-weather.zip .
 
       - name: Upload to S3
         uses: jakejarvis/s3-sync-action@master
