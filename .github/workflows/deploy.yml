@@ -48,17 +48,15 @@ jobs:
           AWS_REGION: ap-northeast-2
           SOURCE_DIR: deploy
 
-      - name: Deploy to AWS CodeDeploy
-        uses: aws-actions/aws-codedeploy-github-deploy@v1
-        with:
-          application-name: ${{ secrets.CODEDEPLOY_APP_NAME }}
-          deployment-group: ${{ secrets.CODEDEPLOY_DEPLOY_GROUP }}
-          deployment-config-name: CodeDeployDefault.AllAtOnce
-          deployment-description: "Deploy from GitHub Actions"
-          bucket: ${{ secrets.AWS_S3_BUCKET }}
-          key: cotato-11th-weather.zip
-          region: ap-northeast-2
-          wait-for-deployment-status: true
+      - name: Deploy to AWS CodeDeploy using AWS CLI
+        run: |
+          aws deploy create-deployment \
+            --application-name ${{ secrets.CODEDEPLOY_APP_NAME }}
+            --deployment-group-name ${{ secrets.CODEDEPLOY_DEPLOY_GROUP }} \
+            --deployment-config-name CodeDeployDefault.AllAtOnce \
+            --description "Deploy from GitHub Actions via AWS CLI" \
+            --s3-location bucket=${{ secrets.AWS_S3_BUCKET }},bundleType=zip,key=cotato-11th-weather.zip \
+            --region ap-northeast-2
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
