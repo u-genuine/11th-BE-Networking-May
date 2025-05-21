@@ -1,22 +1,63 @@
-#name: 11th-BE-Netwoking-May CI/CD
-#
-#on:
-#  pull_request:
-#    types: [closed]
-#    branches:
-#      - develop # PR이 develop에 머지될 때만 실행
-#  workflow_dispatch: # 수동 실행 가능
-#
-#jobs:
-#  deploy:
-#    runs-on: self-hosted
-#
-#    steps:
-#      - name: Checkout repository
-#        uses: actions/checkout@v3
-#
-#      - name: Deploy directly on self-hosted EC2
-#        run: |
-#          cd ~/app/step1
-#          chmod +x deploy.sh
-#          ./deploy.sh
+name: 11th-BE-Netwoking-May CI/CD
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - develop # PR이 develop에 머지될 때만 실행
+  workflow_dispatch: # 수동 실행 가능
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build project
+        run: ./gradlew clean build -x test
+
+      - name: Prepare deploy package
+        run: |
+          mkdir -p before-deploy
+          cp scripts/*.sh before-deploy/
+          cp appspec.yml before-deploy/
+          cp build/libs/*.jar before-deploy/
+          cd before-deploy && zip -r before-deploy.zip .
+          mkdir -p ../deploy
+          mv before-deploy.zip ../deploy/cotato-11th-weather.zip
+
+      - name: Upload to S3
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --acl private --follow-symlinks --delete
+        env:
+          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ap-northeast-2
+          SOURCE_DIR: deploy
+
+      - name: Deploy with CodeDeploy
+        uses: webfactory/code-deploy-action@v0.6.1
+        with:
+          application-name: ${{ secrets.CODEDEPLOY_APP_NAME }}
+          deployment-group: ${{ secrets.CODEDEPLOY_DEPLOY_GROUP }}
+          deployment-config: CodeDeployDefault.AllAtOnce
+          description: "Deploy from GitHub Actions"
+          bucket: ${{ secrets.AWS_S3_BUCKET }}
+          key: cotato-11th-weather.zip
+          bundle-type: zip
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
