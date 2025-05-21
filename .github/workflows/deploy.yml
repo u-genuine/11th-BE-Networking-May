@@ -1,4 +1,4 @@
-name: 11th-BE-Netwoking-May CI/CD
+name: CI/CD with CodeDeploy
 
 on:
   pull_request:
@@ -48,16 +48,17 @@ jobs:
           AWS_REGION: ap-northeast-2
           SOURCE_DIR: deploy
 
-      - name: Deploy with CodeDeploy
-        uses: webfactory/code-deploy-action@v0.6.1
+      - name: Deploy to AWS CodeDeploy
+        uses: aws-actions/aws-codedeploy-github-deploy@v1
         with:
           application-name: ${{ secrets.CODEDEPLOY_APP_NAME }}
           deployment-group: ${{ secrets.CODEDEPLOY_DEPLOY_GROUP }}
-          deployment-config: CodeDeployDefault.AllAtOnce
-          description: "Deploy from GitHub Actions"
+          deployment-config-name: CodeDeployDefault.AllAtOnce
+          deployment-description: "Deploy from GitHub Actions"
           bucket: ${{ secrets.AWS_S3_BUCKET }}
           key: cotato-11th-weather.zip
-          bundle-type: zip
+          region: ap-northeast-2
+          wait-for-deployment-status: true
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
