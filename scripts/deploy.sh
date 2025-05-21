@@ -2,9 +2,16 @@
 
 APP_DIR=/home/ec2-user/app/step2
 ZIP_DIR=$APP_DIR/zip
+ZIP_FILE=$ZIP_DIR/cotato-11th-weather.zip
 
 echo "> 환경 변수 설정"
 export $(cat $APP_DIR/.env | xargs)
+
+### zip 파일 존재 확인 (없으면 중단)
+if [ ! -f "$ZIP_FILE" ]; then
+  echo "> 배포 zip 파일이 존재하지 않습니다: $ZIP_FILE"
+  exit 1
+fi
 
 echo "> 압축 해제"
 unzip -o $ZIP_DIR/cotato-11th-weather.zip -d $ZIP_DIR
@@ -21,7 +28,7 @@ ls -ltr $APP_DIR/*.jar
 echo "> 복사 후 상태:"
 ls -l $APP_DIR/*.jar
 
-JAR_NAME=$(ls -tr $APP_DIR/*.jar | tail -n 1)
+JAR_NAME=$(ls -tr $APP_DIR/*.jar | grep -v 'plain' | tail -n 1)
 
 if [ -z "$JAR_NAME" ]; then
   echo "> JAR_NAME 비어 있음. 배포 중단"
@@ -39,6 +46,13 @@ else
   echo "> kill -15 $CURRENT_PID"
   kill -15 $CURRENT_PID
   sleep 5
+
+  # 혹시 안 죽었으면 강제로 종료
+  STILL_RUNNING=$(pgrep -f $JAR_NAME)
+  if [ -n "$STILL_RUNNING" ]; then
+    echo "> 여전히 실행 중이므로 강제 종료"
+    kill -9 $STILL_RUNNING
+  fi
 fi
 
 echo "> 실행 권한 부여: $JAR_NAME"
