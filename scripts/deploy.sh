@@ -32,10 +32,10 @@ echo "> 실행 권한 부여: $JAR_NAME"
 chmod +x $JAR_NAME
 
 echo "> 애플리케이션 실행"
-nohup java -jar \
+nohup java \
   -Dspring.config.location=file:$APP_DIR/application-prod.yml \
   -Dspring.profiles.active=prod \
-  $JAR_NAME > $APP_DIR/applications.log 2>&1 &
+  -jar $JAR_NAME > $APP_DIR/applications.log 2>&1 &
 
 echo "> 애플리케이션 시작됨: $(pgrep -f $JAR_NAME)"
 
