@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+ENV_FILE="/home/ec2-user/app/step3/.env"
+
+echo "> 환경 변수 로드: ${ENV_FILE}"
+export $(grep -v '^\s*#' "${ENV_FILE}" | xargs)
+
 ABSPATH=$(readlink -f $0)
 ABSDIR=$(dirname $ABSPATH)
 source ${ABSDIR}/profile.sh
