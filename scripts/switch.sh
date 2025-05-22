@@ -5,6 +5,12 @@ ABSDIR=$(dirname $ABSPATH)
 source ${ABSDIR}/profile.sh
 
 function switch_proxy() {
+  # Nginx 실행 보장
+  if ! systemctl is-active --quiet nginx; then
+    echo "> Nginx가 꺼져 있어서 시작합니다."
+    sudo systemctl start nginx
+  fi
+
   IDLE_PORT=$(find_idle_port)
 
   echo "> 전환할 Port: $IDLE_PORT"
